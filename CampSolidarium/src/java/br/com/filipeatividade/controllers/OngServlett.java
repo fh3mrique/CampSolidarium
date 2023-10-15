@@ -9,6 +9,7 @@ import br.com.filipeatividade.entities.Ong;
 import br.com.filipeatividade.repository.OngRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adm
  */
-@WebServlet(name = "OngServlet", urlPatterns = {"/OngServlet"})
-public class OngServlet extends HttpServlet {
+@WebServlet(name = "OngServlett", urlPatterns = {"/OngServlett"})
+public class OngServlett extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +40,10 @@ public class OngServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet OngServlet</title>");            
+            out.println("<title>Servlet OngServlett</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet OngServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet OngServlett at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +61,43 @@ public class OngServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        List<Ong> ongs = OngRepository.findAll();
+        
+        response.setContentType("text/html;charset=UTF-8");
+        
+        try(PrintWriter out = response.getWriter()){
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UsuariosServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+                out.println("<h1>All Ongs</h1>");
+                out.println("<a href='index.html'>home</a>");
+                out.println("<table border='1'>");
+                out.println("<tr><th>id</th><th>cnpj</th><th>name</th>"
+                    + "<th>EMAIL</th><th>phone</th><th>instagram</th></tr>");
+                for (Ong oAux : ongs){
+                    out.println("<tr>");
+                    out.println("<td>" + oAux.getId() + "</td>");
+                    out.println("<td>" + oAux.getCnpj() + "</td>");
+                    out.println("<td>" + oAux.getName() + "</td>");
+                    out.println("<td>" + oAux.getEmail() + "</td>");
+                    out.println("<td>" + oAux.getPhone() + "</td>");
+                    out.println("<td>" + oAux.getInstagram() + "</td>");
+                    out.println("</tr>");
+                }
+                
+            
+            out.println("</body>");
+            out.println("</html>");
+        }
+        
+        
+        
+        
+        
     }
 
     /**
@@ -74,38 +111,7 @@ public class OngServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        Long id = Long.parseLong(request.getParameter("id"));
-        String cnpj = request.getParameter("cnpj");
-        String name = request.getParameter("name");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String instagram = request.getParameter("instagram");
-        
-        
-        Ong ong = new Ong(id, cnpj, name, login, password, email, phone, instagram);
-        
-        OngRepository.save(ong);
-        
-        
-        response.setContentType("text/html;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet new Ong</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Ong "+name+" Cadastrado com sucesso!</h1>");
-            out.println("<a href='RegisterOng.html'>Register new Ong</a>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        processRequest(request, response);
     }
 
     /**
