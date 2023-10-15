@@ -38,16 +38,16 @@ public class OngRepository {
         ongs.add(ong);
     }
     
-    public static void update(Ong e){
+    public static void update(Ong o){
         for (Ong oAux: ongs){
-            if (oAux.getId().equals(e.getId())){
-                oAux.setCnpj(e.getCnpj());
-                oAux.setName(e.getName());
-                oAux.setLogin(e.getLogin());
-                oAux.setPassword(e.getPassword());
-                oAux.setEmail(e.getEmail());
-                oAux.setPhone(e.getPhone());
-                oAux.setInstagram(e.getInstagram());
+            if (oAux.getId().equals(o.getId())){
+                oAux.setCnpj(o.getCnpj());
+                oAux.setName(o.getName());
+                oAux.setLogin(o.getLogin());
+                oAux.setPassword(o.getPassword());
+                oAux.setEmail(o.getEmail());
+                oAux.setPhone(o.getPhone());
+                oAux.setInstagram(o.getInstagram());
                 return;
             }
         }                 
