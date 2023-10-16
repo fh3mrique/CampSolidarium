@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author adm
  */
 @WebServlet(name = "OngServlet", urlPatterns = {"/OngServlet"})
-public class RegisterOngServlet extends HttpServlet {
+public class OngServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

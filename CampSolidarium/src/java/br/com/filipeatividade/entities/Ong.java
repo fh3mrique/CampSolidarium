@@ -34,6 +34,15 @@ public class Ong {
         this.phone = phone;
         this.instagram = instagram;
     }
+    
+     public Ong(Long id, String cnpj, String name, String email, String phone, String instagram) {
+        this.id = id;
+        this.cnpj = cnpj;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.instagram = instagram;
+    }
 
     public Long getId() {
         return id;
