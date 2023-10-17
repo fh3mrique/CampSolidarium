@@ -7,8 +7,9 @@ package br.com.filipeatividade.controllers;
 
 import br.com.filipeatividade.entities.Ong;
 import br.com.filipeatividade.repository.OngRepository;
+import br.com.filipeatividade.services.OngService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,100 +23,48 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "OngServlet", urlPatterns = {"/OngServlet"})
 public class OngServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet OngServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet OngServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        String id = request.getParameter("id");
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        
-        Long id = Long.parseLong(request.getParameter("id"));
-        String cnpj = request.getParameter("cnpj");
-        String name = request.getParameter("name");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String instagram = request.getParameter("instagram");
-        
-        
-        Ong ong = new Ong(id, cnpj, name, login, password, email, phone, instagram);
-        
-        OngRepository.save(ong);
-        
-        
-        response.setContentType("text/html;charset=UTF-8");
-        
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet new Ong</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Ong "+name+" Cadastrado com sucesso!</h1>");
-            out.println("<a href='RegisterOng.html'>Register new Ong</a>");
-            out.println("</body>");
-            out.println("</html>");
+        if (id != null) {
+            Ong insumo = OngRepository.find(Long.parseLong(id));
+
+            String operacao = request.getParameter("operacao");
+
+            if ("edit".equals(operacao)) {
+                 OngService.showEditForm(request, response, insumo);
+            } else if ("delete".equals(operacao)) {
+               OngService.deleteOng(request, response, insumo);
+            } else {
+                OngService.showDetails(response, insumo);
+            }
+        } else {
+            List<Ong> insumos = OngRepository.findAll();
+             OngService.showOngList(response, insumos);
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+   
     @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+
+        Ong ong = OngRepository.find(id);
+
+        ong.setCnpj(request.getParameter("cnpj"));
+        ong.setName(request.getParameter("name"));
+        ong.setLogin(request.getParameter("login"));
+        ong.setPassword(request.getParameter("password"));
+        ong.setEmail(request.getParameter("email"));
+        ong.setPhone(request.getParameter("phone"));
+        ong.setInstagram(request.getParameter("instagram"));
+
+        OngRepository.update(ong);
+
+        OngService.showUpdatedMessage(response);
+    }
 
 }

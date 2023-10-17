@@ -5,8 +5,8 @@
  */
 package br.com.filipeatividade.controllers;
 
-import br.com.filipeatividade.entities.Insumo;
-import br.com.filipeatividade.repository.InsumoRepository;
+import br.com.filipeatividade.entities.Ong;
+import br.com.filipeatividade.repository.OngRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,22 +19,26 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author adm
  */
-@WebServlet(name = "RegisterInsumoServlet", urlPatterns = {"/RegisterInsumoServlet"})
-public class RegisterInsumoServlet extends HttpServlet {
-    
+@WebServlet(name = "RegisterOngServlet", urlPatterns = {"/RegisterOngServlet"})
+public class RegisterOngServlet extends HttpServlet {
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         Long id = Long.parseLong(request.getParameter("id"));
+        String cnpj = request.getParameter("cnpj");
         String name = request.getParameter("name");
-        String brand = request.getParameter("brand");
-        String category = request.getParameter("category");
-        Integer qtd = Integer.parseInt( request.getParameter("qtd"));
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String instagram = request.getParameter("instagram");
         
-        Insumo insumo = new Insumo(id, name, brand, category, qtd);
         
-        InsumoRepository.save(insumo);
+        Ong ong = new Ong(id, cnpj, name, login, password, email, phone, instagram);
+        
+        OngRepository.save(ong);
         
         response.setContentType("text/html;charset=UTF-8");
         
@@ -42,15 +46,16 @@ public class RegisterInsumoServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet new Ong</title>");            
+            out.println("<title>new Ong</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>insumo "+name+" saved!</h1>");
-            out.println("<a href='registerInsumo.html'>Register new insumo</a>");
+            out.println("<h1>Ong "+name+" saved!</h1>");
+            out.println("<a href='registerOng.html'>Register new Ong</a>");
             out.println("</body>");
             out.println("</html>");
             
-        }        
+        }
+        
     }
 
 }
