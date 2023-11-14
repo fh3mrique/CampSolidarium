@@ -19,6 +19,11 @@ public class OngRepository {
     
     static {
         ongs = new ArrayList<>();
+        Ong ong1 = new Ong(1L, "2324455", "Agencia cachorro lovers", "dogLovers@gmail.com", "5555-5555", "@doglove");
+        Ong ong2 = new Ong(2L, "2324455", "PET MALUCO", "dogCrazyes@gmail.com", "5555-5555", "@dogcrazy");
+        
+        save(ong1);
+        save(ong2);
     } 
     
     public static Ong find(Long id){

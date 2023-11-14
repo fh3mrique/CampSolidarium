@@ -26,23 +26,27 @@ public class OngServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String id = request.getParameter("id");
-
-        if (id != null) {
-            Ong insumo = OngRepository.find(Long.parseLong(id));
-
-            String operacao = request.getParameter("operacao");
-
-            if ("edit".equals(operacao)) {
-                 OngService.showEditForm(request, response, insumo);
-            } else if ("delete".equals(operacao)) {
-               OngService.deleteOng(request, response, insumo);
-            } else {
-                OngService.showDetails(response, insumo);
-            }
-        } else {
-            List<Ong> insumos = OngRepository.findAll();
-             OngService.showOngList(response, insumos);
+        
+        String operacao = request.getParameter("operacao");
+        
+        List<Ong> ongs = OngRepository.findAll();
+        
+        if (id != null){
+          
+            Ong ong = OngRepository.find(Long.parseLong(id));
+            
+            if (operacao.equals("detalhar")) {
+                OngService.showDetails(request, response, ong);
+            } else if (operacao.equals("editar")) {
+                OngService.showEditForm(request, response, ong);
+            } else if (operacao.equals("excluir")) {
+                OngService.deleteOng(request, response, ong);
+            }     
+        }
+        else{
+            OngService.showOngList(request, response, ongs);
         }
     }
 
@@ -64,7 +68,7 @@ public class OngServlet extends HttpServlet {
 
         OngRepository.update(ong);
 
-        OngService.showUpdatedMessage(response);
+        OngService.showUpdatedMessage(request, response);
     }
 
 }

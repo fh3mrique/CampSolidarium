@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/repository/InsumoRepository.java</file>
-            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/entities/Ong.java</file>
-            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/repository/OngRepository.java</file>
-            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/repository/EmergencyRepository.java</file>
-            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/entities/Emergency.java</file>
+            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/controllers/OngServlet.java</file>
+            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/controllers/InsumoServlet.java</file>
+            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/web/index.html</file>
+            <file>file:/C:/Users/adm/Documents/NetBeansProjects/CampSolidarium/src/java/br/com/filipeatividade/services/InsumoService.java</file>
         </group>
     </open-files>
 </project-private>
