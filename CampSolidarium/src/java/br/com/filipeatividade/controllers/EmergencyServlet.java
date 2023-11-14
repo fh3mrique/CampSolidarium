@@ -23,50 +23,42 @@ public class EmergencyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String id = request.getParameter("id");
-        
-        if (id != null){
-            
+        String operacao = request.getParameter("operacao");
+
+        List<Emergency> emergencies = EmergencyRepository.findAll();
+
+        if (id != null) {
             Emergency emergency = EmergencyRepository.find(Long.parseLong(id));
-            
-            String operacao = request.getParameter("operacao");
-            
-            if ("edit".equals(operacao)){
+
+            if ("detalhar".equals(operacao)) {
+                EmergencyService.showDetails(request, response, emergency);
+            } else if ("editar".equals(operacao)) {
                 EmergencyService.showEditForm(request, response, emergency);
-            }
-            else if ("delete".equals(operacao)){
+            } else if ("excluir".equals(operacao)) {
                 EmergencyService.deleteEmergency(request, response, emergency);
             }
-            else {
-                EmergencyService.showDetails(response, emergency);
-            }  
+        } else {
+            EmergencyService.showEmergenciesList(request, response, emergencies);
         }
-        
-        else {
-            List<Emergency> emergencies = EmergencyRepository.findAll();
-            EmergencyService.showEmergenciesList(response, emergencies);
-        }
-                   
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        Long id = Long.parseLong(request.getParameter("codigo"));
 
-        Emergency insumo = EmergencyRepository.find(id);
+        Long id = Long.parseLong(request.getParameter("id"));
+        Emergency emergency = EmergencyRepository.find(id);
 
-        insumo.setLocal(request.getParameter("local"));
-        insumo.setDescription(request.getParameter("description"));
-        insumo.setSeverityLevel(request.getParameter("severityLevel"));
-        insumo.setType(request.getParameter("type"));
+        emergency.setLocal(request.getParameter("local"));
+        emergency.setDescription(request.getParameter("description"));
+        emergency.setSeverityLevel(request.getParameter("severityLevel"));
+        emergency.setType(request.getParameter("type"));
 
-        EmergencyRepository.update(insumo);
+        EmergencyRepository.update(emergency);
 
-        EmergencyService.showUpdatedMessage(response);
-           
+        EmergencyService.showUpdatedMessage(request, response);
     }
 
 }

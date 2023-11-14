@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Emergencia Atualizado com Sucesso!</h1>
+        <a href="EmergencyServlet">Voltar para a Lista de emergencias</a>
     </body>
 </html>

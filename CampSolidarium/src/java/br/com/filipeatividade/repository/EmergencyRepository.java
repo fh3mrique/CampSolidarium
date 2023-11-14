@@ -18,6 +18,11 @@ public class EmergencyRepository {
     
     static {
         emergencies = new ArrayList<>();
+        Emergency emergency1 = new Emergency(1L, "IFPE", "TIPO 1", "O cachorro matou um aluno", "LEVE");
+        Emergency emergency2 = new Emergency(2L, "Minha CASA", "DIABETE TIPO 2", "Meu cachorro está programando em jsp", "ALTO");
+
+        save(emergency1);
+        save(emergency2);
     } 
     
     public static Emergency find(Long id){

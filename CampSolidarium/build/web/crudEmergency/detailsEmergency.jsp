@@ -12,6 +12,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <h1>Detalhes da Emergencia</h1>
+    <ul>
+        <li><strong>ID:</strong> ${emergency.id}</li>
+        <li><strong>local:</strong> ${emergency.local}</li>
+        <li><strong>tipo:</strong> ${emergency.type}</li>
+        <li><strong>descrição:</strong> ${emergency.description}</li>
+        <li><strong>seriedade</strong> ${emergency.severityLevel}</li>
+    </ul>
+    <a href="EmergencyServlet">Voltar para a Lista de Emergencias</a>
     </body>
 </html>
